@@ -701,6 +701,8 @@ appaterno_emp ASC
 --Al intentar ordenar los sueldos de manera ascendente no me lo permite ya que ya estan ordenado por orden alfabetico los apellidos paternos
 ;
 
+--CASO 6 GUIA
+
 SELECT
 nombre_emp
      || ' '

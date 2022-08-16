@@ -489,7 +489,7 @@ WHERE
 
 --Propietarioas solteros
 SELECT
-    
+    *
     
 FROM
     propietario
@@ -497,4 +497,100 @@ FROM
 WHERE
     id_estcivil = 1
     
+;
+
+--Clientes con estado civil 2,3y4
+SELECT
+    nombre_cli
+        ||' '
+        ||appaterno_cli
+        ||' '
+        ||apmaterno_cli
+    AS "NOMBRE CLIENTE"
+    ,id_estcivil
+
+FROM
+    cliente
+    
+WHERE
+    id_estcivil BETWEEN 2 AND 4
+    
+ORDER BY
+    id_estcivil ASC
+    
+;
+
+--PROPIEDADES CON FECHA DE ENTREGA 2022
+SELECT
+    *
+
+FROM
+    propiedad
+    
+WHERE
+    fecha_entrega_propiedad BETWEEN '01/01/22' AND '31/12/22'
+    
+;
+
+--Propiedades en las cominas 84,87,118,122
+SELECT
+    *
+    
+FROM
+    propiedad
+
+WHERE
+    id_comuna IN(84,87,118,122)
+    
+ORDER BY
+    id_comuna ASC
+
+;
+
+--CLIENTES CON APELIIDOS SELECTOS
+SELECT
+    *
+    
+FROM
+    cliente
+
+WHERE
+    appaterno_cli IN('TRINKE','RAMIREZ','MARTINEZ')
+    
+ORDER BY
+    appaterno_cli ASC
+
+;
+
+--DESAFIO 1
+SELECT
+    nombre_cli
+
+FROM
+    Cliente
+
+WHERE
+    nombre_cli LIKE '%A'
+
+;
+
+--DESAFIO 2
+SELECT
+    *
+    
+FROM
+    propiedad
+
+WHERE fecha_entrega_propiedad LIKE '%22'
+
+;
+
+--DESAFIO 3
+SELECT
+    *
+
+FROM
+    cliente
+
+WHERE nombre_cli LIKE '__A%'
 ;

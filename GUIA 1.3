@@ -1,0 +1,21 @@
+---UPPER, LOWER , INTICAP Y SUS USOS
+SELECT
+    UPPER(pnombre_emp), --LLEVA TODO A MAYUSCULAS
+    UPPER(snombre_emp),
+    LOWER(appaterno_emp), --LLEVA TODO A MINUSCULAS
+    INITCAP(apmaterno_emp) --LA PRIMERA LETRA EN MAYUSCULAS Y LAS DEMAS EN MINUSCULAS(NOMBRE PROPIO)
+FROM 
+    empleado
+;
+    
+---LENGTH ,RPAD Y LPAD
+SELECT
+    direccion_emp,
+    LENGTH(direccion_emp), --TE DICE CUANTAS LETRS TIENE ESA FRASE O ORACION
+    RPAD(direccion_emp,32,'*'),
+    LPAD(direccion_emp,32,'*'),
+    
+    
+FROM
+    empleado
+;

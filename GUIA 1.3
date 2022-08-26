@@ -635,7 +635,7 @@ SELECT
     AS "NOMBRE EMPLEADO",
     sueldo_base AS"SUELDO BASE",
     TRUNC(sueldo_base/100000) AS"PORCENTAJE DE MOVILIZACION",
-    TRUNC(sueldo_base*(sueldo_base/100000)) AS "VALOR MOVILIZACION"
+    TRUNC(sueldo_base*((sueldo_base/100000)/100)) AS "VALOR MOVILIZACION"
 FROM
     empleado
 ORDER BY
@@ -674,3 +674,43 @@ FROM
     empleado
 ;
 
+--CASO 4
+SELECT
+    *
+FROM
+    camion
+;
+SELECT
+    EXTRACT(YEAR FROM SYSDATE),
+    nro_patente,
+    valor_arriendo_dia AS"VALOR ARRIENDO DIA SR",
+    valor_garantia_dia AS"VALOR ARRIENDO DIA SR",
+    EXTRACT(YEAR FROM SYSDATE)-anio AS"AÑOS DE ANTIGUEDAD",
+    valor_arriendo_dia-(((EXTRACT(YEAR FROM SYSDATE)-anio)/100)*(valor_arriendo_dia)) AS"VALOR ARRIENDO DIA CR",
+    valor_garantia_dia-(((EXTRACT(YEAR FROM SYSDATE)-anio)/100)*(valor_garantia_dia))
+    AS"VALOR GARANTIA CR"
+FROM
+    camion
+WHERE
+   EXTRACT(YEAR FROM SYSDATE)-anio > 5
+ORDER BY
+    EXTRACT(YEAR FROM SYSDATE)-anio DESC
+;
+
+--CASO 5
+SELECT
+    EXTRACT(MONTH FROM SYSDATE)
+    ||'/'
+    ||EXTRACT(YEAR FROM SYSDATE)
+    AS "MES_ANNO_PROCESO",
+    nro_patente,
+    fecha_ini_arriendo,
+    dias_solicitados,
+    fecha_devolucion,
+    fecha_devolucion-fecha_ini_arriendo,
+    (fecha_devolucion-fecha_ini_arriendo)*25500
+FROM
+    ARRIENDO_CAMION
+WHERE
+   
+;

@@ -708,9 +708,14 @@ SELECT
     dias_solicitados,
     fecha_devolucion,
     fecha_devolucion-fecha_ini_arriendo,
-    (fecha_devolucion-fecha_ini_arriendo)*25500
+    (fecha_devolucion-fecha_ini_arriendo)*'&&multa'
+     
 FROM
     ARRIENDO_CAMION
 WHERE
-   
+   EXTRACT(MONTH FROM SYSDATE-30) = EXTRACT(MONTH FROM fecha_ini_arriendo)
+   AND
+   EXTRACT(YEAR FROM SYSDATE) =  EXTRACT(YEAR FROM fecha_ini_arriendo)
 ;
+UNDEFINE multa;
+

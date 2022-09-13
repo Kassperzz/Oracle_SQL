@@ -1,0 +1,117 @@
+--CASO 1
+
+SELECT
+
+SUBSTR(rutprof,1,LENGTH(rutprof)-1)
+
+||'-'
+
+||SUBSTR(rutprof,-1,1) AS "RUT PROFESIONAL"
+
+,UPPER(nompro||' '||apppro||' '||apmpro) AS "NOMBRE PROFESIONAL"
+
+,TO_CHAR(sueldo,'L999G999G999') AS "SUELDO BRUTO"
+
+,NVL2(comision
+
+,TO_CHAR(comision)
+
+,'SIN COMISION'
+
+) AS "PORCENTAJE COMISION"
+
+FROM
+
+profesional
+
+WHERE
+
+sueldo*(NVL(comision,0)+1) BETWEEN 500000 AND 990000
+
+ORDER BY
+
+apppro ASC
+
+,sueldo DESC
+
+;
+
+
+
+--CASO 2
+
+SELECT
+
+idempresa AS "NUMERO DE EMPRESA"
+
+,SUBSTR(rutprof,1,LENGTH(rutprof)-1)
+
+||'-'
+
+||SUBSTR(rutprof,-1,1) AS "RUT PROFESIONAL"
+
+,TRUNC(MONTHS_BETWEEN(fin,inicio),2) AS "DURACION EN MESES ASESORÍA"
+
+,TO_CHAR(honorario,'L999G999G999') AS "HONORARIOS"
+
+FROM
+
+asesoria
+
+WHERE
+
+idempresa=7
+
+AND
+
+honorario>850000
+
+ORDER BY
+
+rutprof ASC
+
+,honorario DESC
+
+;
+
+
+
+--CASO 3
+
+SELECT
+
+rutprof AS "RUT PROFESIONAL"
+
+,LOWER(apppro||' '||apmpro||' '||nompro) AS "NOMBRE PROFESIONAL"
+
+,idisapre AS "NUMERO DE ISAPRE"
+
+,TO_CHAR(sueldo,'L999G999G999') AS "SUELDO PROFESIONAL"
+
+,TO_CHAR(CASE
+
+WHEN sueldo*(5/100)>50000 THEN
+
+50000
+
+ELSE
+
+sueldo*(5/100)
+
+END,'L999G999G999') AS "VALOR OPERATIVO"
+
+FROM
+
+profesional
+
+WHERE
+
+UPPER(apppro) LIKE 'M%'
+
+ORDER BY
+
+3 ASC
+
+,5 DESC
+
+;

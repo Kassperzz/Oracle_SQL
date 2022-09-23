@@ -1,8 +1,12 @@
 --CASO 1
 SELECT
-  INITCAP(prof.nombre_prof_ofic) AS "PROFESION/OFICIO"
+  TO_CHAR(cli.numrun,'09G999G999')
+    ||'-'
+    ||UPPER(cli.dvrun) AS "RUN CLIENTE"
+  ,INITCAP(cli.pnombre||' '||cli.snombre||' '||cli.appaterno||' '||cli.apmaterno) AS "NOMBRE CLIENTE"
+  ,TO_CHAR(fecha_nacimiento,'dd" de "Month') AS "DIA DE CUMPLEAÑOS"
 FROM
-  profesion_oficio prof
+  cliente cli
 ;
 
 --CASO 2

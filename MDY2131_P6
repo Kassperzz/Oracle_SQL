@@ -32,3 +32,48 @@ ORDER BY
     "TOTAL PESOS TODOSUMA" ASC
     ,cli.appaterno
 ;
+
+--CASO 3
+SELECT
+    TO_CHAR(fecha_otorga_cred,'mmyyyy')
+    AS"MES TRANSACCION",
+    UPPER(CASE
+        WHEN cod_credito=1 THEN
+            'Crédito Hipotecario'
+        WHEN cod_credito=2 THEN
+            'Crédito de Consumo'
+        WHEN cod_credito=3 THEN
+            'Crédito Automotriz'
+        WHEN cod_credito=4 THEN
+            'Crédito de Emergencia'
+        ELSE
+            'Credito por Pago Arancel'
+       END)
+       AS"TIPO CREDITO",
+    TO_CHAR(SUM(monto_solicitado),'L999G999G999')
+    AS"MONTO SOLICITADO CREDITO"
+    /*CASE
+        WHEN monto_solicitado BETWEEN 100000 AND 1000000 THEN
+            monto_solicitado*0.01
+        WHEN monto_solicitado BETWEEN 1000001 AND 2000000 THEN
+            monto_solicitado*0.02
+        WHEN monto_solicitado BETWEEN 2000001 AND 4000000 THEN
+            monto_solicitado*0.03
+        WHEN monto_solicitado BETWEEN 4000001 AND 6000000 THEN
+            monto_solicitado*0.04
+        ELSE
+            monto_solicitado*0.07
+       END
+       AS"APORTE A LA SBIF"*/
+    
+FROM
+    CREDITO_CLIENTE
+WHERE
+    EXTRACT(YEAR FROM ADD_MONTHS(SYSDATE,-12))=EXTRACT(YEAR FROM fecha_otorga_cred)   
+GROUP BY
+    TO_CHAR(fecha_otorga_cred,'mmyyyy'),
+    TO_CHAR(SUM(monto_solicitado),'L999G999G999'),
+    "TIPO CREDITO"
+ORDER BY
+    1 ASC
+;

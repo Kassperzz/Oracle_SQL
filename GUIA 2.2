@@ -1,0 +1,23 @@
+--CASO 2
+SELECT
+    TO_CHAR(cli.numrun,'09G999G999')||'-'||UPPER(cli.dvrun)
+    AS"RUN CLIENTE",
+    UPPER(cli.pnombre||' '||cli.snombre||' '||cli.appaterno||' '||cli.apmaterno)
+    AS"NOMBRE CLIENTE",
+    TO_CHAR(SUM(cred.monto_solicitado),'L999G999G999')
+    AS"MONTO SOLICITADO DE CREDITOS",
+    TO_CHAR(((TRUNC(SUM(cred.monto_solicitado)/100000))*1200),'L999G999G999')
+    AS"TOTAL PESOS TODOSUMA"
+FROM
+    cliente cli INNER JOIN credito_cliente cred
+        ON(cli.nro_cliente=cred.nro_cliente)
+WHERE
+    EXTRACT(YEAR FROM ADD_MONTHS(SYSDATE,-12))=EXTRACT(YEAR FROM cred.fecha_solic_cred)
+GROUP BY
+    TO_CHAR(cli.numrun,'09G999G999')||'-'||UPPER(cli.dvrun)
+    ,UPPER(cli.pnombre||' '||cli.snombre||' '||cli.appaterno||' '||cli.apmaterno)
+    ,cli.appaterno
+ORDER BY
+    "TOTAL PESOS TODOSUMA" ASC
+    ,cli.appaterno
+;

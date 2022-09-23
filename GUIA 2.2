@@ -1,3 +1,10 @@
+--CASO 1
+SELECT
+  INITCAP(prof.nombre_prof_ofic) AS "PROFESION/OFICIO"
+FROM
+  profesion_oficio prof
+;
+
 --CASO 2
 SELECT
     TO_CHAR(cli.numrun,'09G999G999')||'-'||UPPER(cli.dvrun)

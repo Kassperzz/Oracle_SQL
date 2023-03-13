@@ -1,0 +1,50 @@
+PROBLEMA N°1
+DECLARE
+
+nom_empleado varchar2(25);
+
+appa_empleado varchar2(15);
+
+apma_empleado varchar2(15);
+
+rut varchar2(11);
+
+sueldo number;
+
+porc_bono number;
+
+bonificacion number;
+
+
+
+BEGIN
+
+porc_bono := &porcentaje_bono;
+
+rut := &rut;
+
+
+
+SELECT nombre_emp, appaterno_emp, apmaterno_emp, concat(numrut_emp, dvrut_emp), sueldo_emp, sueldo_emp*(porc_bono/100)
+
+INTO nom_empleado, appa_empleado, apma_empleado, rut, sueldo, bonificacion
+
+FROM empleado
+
+WHERE concat(numrut_emp, dvrut_emp)= rut;
+
+
+
+dbms_output.put_line('DATOS CALCULO BONIFICACION EXTRA DEL 40% DEL SUELDO');
+
+dbms_output.put_line('Nombre Empleado: '||nom_empleado||' '||appa_empleado||' '||apma_empleado);
+
+dbms_output.put_line('RUN: '||rut);
+
+dbms_output.put_line('Sueldo: '||sueldo);
+
+dbms_output.put_line('Bonificacion Extra: '||bonificacion);
+
+
+
+END;
